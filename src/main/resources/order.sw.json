@@ -1,0 +1,54 @@
+{
+  "id": "order",
+  "version": "1.0",
+  "specVersion": "0.8",
+  "name": "Backstage Catalog",
+  "description": "Order Workflow Sample + Entity Counting",
+  "start": "Fetch Entities",
+  "functions": [
+    {
+      "name": "printMessage",
+      "type": "custom",
+      "operation": "sysout"
+    },
+    {
+      "name": "getEntities",
+      "type": "rest",
+      "operation": "specs/backstagecatalog.yaml#Query catalog entities"
+    }
+  ],
+  "states": [
+    {
+      "name": "Fetch Entities",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "getEntitiesCall",
+          "functionRef": {
+            "refName": "getEntities"
+          }
+        }
+      ],
+      "transition": "Count Entities"
+    },
+    {
+      "name": "Count Entities",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "storeCount",
+          "actionDataFilter": {
+            "results": "{ entityCount: .length }"
+          },
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Entity count is \" + .length"
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

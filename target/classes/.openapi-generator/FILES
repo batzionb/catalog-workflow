@@ -1,0 +1,8 @@
+.openapi-generator-ignore
+org/kie/kogito/openapi/backstagecatalog/api/DefaultApi.java
+org/kie/kogito/openapi/backstagecatalog/api/auth/AuthenticationPropagationHeadersFactory.java
+org/kie/kogito/openapi/backstagecatalog/api/auth/CompositeAuthenticationProvider.java
+org/kie/kogito/openapi/backstagecatalog/model/Entity.java
+org/kie/kogito/openapi/backstagecatalog/model/Location.java
+org/kie/kogito/openapi/backstagecatalog/model/LocationSpec.java
+org/kie/kogito/openapi/backstagecatalog/model/LocationsGet200Response.java

@@ -1,0 +1,157 @@
+{
+  "id": "order",
+  "version": "1.0",
+  "specVersion": "0.8",
+  "name": "Order Workflow",
+  "description": "Order Workflow Sample",
+  "start": "Order Received",
+  "functions": [
+    {
+      "name": "printMessage",
+      "type": "custom",
+      "operation": "sysout"
+    },
+    {
+      "name": "sendOrder",
+      "operation": "specs/supplier.yaml#sendOrder",
+      "type": "rest"
+    },
+    {
+      "name": "cancelOrder",
+      "operation": "specs/supplier.yaml#cancelOrder",
+      "type": "rest"
+    }
+  ],
+  "events": [
+    {
+      "name": "orderEvent",
+      "kind": "consumed",
+      "type": "OrderEventType",
+      "source": "Client",
+      "correlation": [
+        {
+          "contextAttributeName": "orderid"
+        }
+      ]
+    },
+    {
+      "name": "shippingEvent",
+      "kind": "consumed",
+      "type": "ShippingEventType",
+      "source": "Shipper",
+      "correlation": [
+        {
+          "contextAttributeName": "orderid"
+        }
+      ]
+    }
+  ],
+  "states": [
+    {
+      "name": "Order Received",
+      "type": "event",
+      "onEvents": [
+        {
+          "eventRefs": [
+            "orderEvent"
+          ]
+        }
+      ],
+      "transition": "Check Inventory"
+    },
+    {
+      "name": "Check Inventory",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "printAction",
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Check Inventory \" + .orderId"
+            }
+          },
+          "actionDataFilter": {
+            "fromStateData": ".",
+            "results": "{inventory: .item | test(\"0+\") }"
+          }
+        }
+      ],
+      "transition": "Item Available?"
+    },
+    {
+      "name": "Item Available?",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "condition": ".inventory",
+          "transition": "Prepare for Shipping"
+        }
+      ],
+      "defaultCondition": {
+        "transition": "Forward to External Supplier"
+      }
+    },
+    {
+      "name": "Prepare for Shipping",
+      "type": "operation",
+      "transition": "Order Shipped",
+      "actions": [
+        {
+          "name": "printAction",
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Prepare for Shipping\""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forward to External Supplier",
+      "type": "operation",
+      "transition": "Order Shipped",
+      "actions": [
+        {
+          "name": "sendOrderRestCall",
+          "functionRef": {
+            "refName": "sendOrder",
+            "arguments": {
+              "supplier-id": "\"1\"",
+              "content": ".orderId"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Shipped",
+      "type": "event",
+      "onEvents": [
+        {
+          "eventRefs": [
+            "shippingEvent"
+          ]
+        }
+      ],
+      "transition": "Notify Customer"
+    },
+    {
+      "name": "Notify Customer",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "printAction",
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Notify Customer\""
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

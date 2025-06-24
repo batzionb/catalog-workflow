@@ -1,0 +1,93 @@
+{
+  "id": "order",
+  "version": "1.0",
+  "specVersion": "0.8",
+  "name": "Order Workflow",
+  "description": "Order Workflow Sample",
+  "start": "Check Inventory",
+  "functions": [
+    {
+      "name": "printMessage",
+      "type": "custom",
+      "operation": "sysout"
+    },
+    {
+      "name": "sendOrder",
+      "operation": "specs/supplier.yaml#sendOrder",
+      "type": "rest"
+    },
+    {
+      "name": "cancelOrder",
+      "operation": "specs/supplier.yaml#cancelOrder",
+      "type": "rest"
+    }
+  ],
+  "states": [
+    {
+      "name": "Check Inventory",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "printAction",
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Check Inventory \" + .orderId"
+            }
+          },
+          "actionDataFilter": {
+            "fromStateData": ".",
+            "results": "{inventory: .item | test(\"0+\") }"
+          }
+        }
+      ],
+      "transition": "Item Available?"
+    },
+    {
+      "name": "Item Available?",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "condition": ".inventory",
+          "transition": "Prepare for Shipping"
+        }
+      ],
+      "defaultCondition": {
+        "transition": "Forward to External Supplier"
+      }
+    },
+    {
+      "name": "Prepare for Shipping",
+      "type": "operation",
+      "end": true,
+      "actions": [
+        {
+          "name": "printAction",
+          "functionRef": {
+            "refName": "printMessage",
+            "arguments": {
+              "message": "\"Prepare for Shipping\""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forward to External Supplier",
+      "type": "operation",
+      "end": true,
+      "actions": [
+        {
+          "name": "sendOrderRestCall",
+          "functionRef": {
+            "refName": "sendOrder",
+            "arguments": {
+              "supplier-id":"\"1\"",
+              "content":".orderId"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

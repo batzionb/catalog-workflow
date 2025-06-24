@@ -1,0 +1,14 @@
+org/kie/kogito/openapi/backstagecatalog/model/LocationsGet200Response.class
+org/kie/kogito/openapi/backstagecatalog/model/Location.class
+.openapi-generator/FILES
+org/kie/kogito/openapi/backstagecatalog/api/auth/AuthenticationPropagationHeadersFactory.class
+org/kie/kogito/openapi/backstagecatalog/api/auth/CompositeAuthenticationProvider.class
+org/kie/kogito/openapi/backstagecatalog/api/DefaultApi.class
+org/kie/kogito/openapi/backstagecatalog/model/LocationSpec.class
+.openapi-generator-ignore
+.openapi-generator/VERSION
+org/kie/kogito/openapi/backstagecatalog/model/LocationsGet200Response$LocationsGet200ResponseQueryParam.class
+org/kie/kogito/openapi/backstagecatalog/model/Entity.class
+org/kie/kogito/openapi/backstagecatalog/model/Location$LocationQueryParam.class
+org/kie/kogito/openapi/backstagecatalog/model/LocationSpec$LocationSpecQueryParam.class
+org/kie/kogito/openapi/backstagecatalog/model/Entity$EntityQueryParam.class

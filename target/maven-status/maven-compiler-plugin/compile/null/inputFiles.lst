@@ -1,0 +1,8 @@
+/home/brotman/repos/catalog-workflow/src/main/java/services/Supplier.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/api/DefaultApi.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/api/auth/AuthenticationPropagationHeadersFactory.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/api/auth/CompositeAuthenticationProvider.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/model/Entity.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/model/Location.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/model/LocationSpec.java
+/home/brotman/repos/catalog-workflow/target/generated-sources/open-api-stream/org/kie/kogito/openapi/backstagecatalog/model/LocationsGet200Response.java

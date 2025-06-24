@@ -1,0 +1,83 @@
+########################################################
+# Variables
+@orderId = 1000
+
+########################################################
+# Start order workflow
+# - use case: item available in the inventory
+
+POST http://localhost:8080/order
+Content-Type: application/json
+Accept: application/json
+X-Backstage-Authorization: "eyJ0eXAiOiJ2bmQuYmFja3N0YWdlLnVzZXIiLCJhbGciOiJFUzI1NiIsImtpZCI6IjQ3YTZhNjc3LTAxNzAtNDhkZC05ZjI0LTdlYWZmMmFlNGY5MSJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcwMDcvYXBpL2F1dGgiLCJzdWIiOiJ1c2VyOmRldmVsb3BtZW50L2d1ZXN0IiwiZW50IjpbInVzZXI6ZGV2ZWxvcG1lbnQvZ3Vlc3QiXSwiYXVkIjoiYmFja3N0YWdlIiwiaWF0IjoxNzUwNzcxMTAzLCJleHAiOjE3NTA3NzQ3MDMsInVpcCI6IkRWTUIwLWl6MzlQd0hiS3poRkJiUE1FSTROWFNSV2dMaElWX1pRYnFnZEl6ZHJ3cHBOdVZ2TU5YM0R4dzBqelRnbXhlNmVhcm5HaTBZSVZyN0FtQmxBIn0.1qsSkJYsyHWmoHpkKakalXymShwfkx-SxOhNR-z85txWfDwIQCNKmx_gP4HFB59q6OPxtl-rQH8gLMMDTJSfMQ"
+{ 
+    "workflowdata": { 
+        "orderId": "{{orderId}}",
+        "item": "1110"
+    } 
+}
+
+########################################################
+# Start order workflow
+# - use case: item not available in the inventory
+
+POST http://localhost:8080/order
+Content-Type: application/json
+Accept: application/json
+
+{ 
+    "workflowdata": { 
+        "orderId": "{{orderId}}",
+        "item": "1111"
+    } 
+}
+
+########################################################
+# Start order workflow through CloudEvent
+# - use case: item available in the inventory
+
+POST http://localhost:8080/
+Content-Type: application/json
+Accept: application/json
+ce-specversion: 1.0
+ce-id: {{$guid}}
+ce-source: Client
+ce-type: OrderEventType
+ce-orderid: {{orderId}}
+
+{ 
+    "orderId": "{{orderId}}",
+    "item": "1110"
+}
+
+########################################################
+# Shipment through CloudEvent
+
+POST http://localhost:8080/
+Content-Type: application/json
+Accept: application/json
+ce-specversion: 1.0
+ce-id: {{$guid}}
+ce-source: Shipper
+ce-type: ShippingEventType
+ce-orderid: {{orderId}}
+
+{ 
+    "orderId": "{{orderId}}"
+}
+
+########################################################
+# Cancel Order through CloudEvent
+
+POST http://localhost:8080/
+Content-Type: application/json
+Accept: application/json
+ce-specversion: 1.0
+ce-id: {{$guid}}
+ce-source: Client
+ce-type: CancelEventType
+ce-orderid: {{orderId}}
+
+{ 
+    "orderId": "{{orderId}}"
+}
