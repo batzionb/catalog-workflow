@@ -4,9 +4,9 @@ kind: ServiceAccount
 metadata:
   annotations:
     app.quarkus.io/quarkus-version: 3.8.6.redhat-00004
-    app.quarkus.io/commit-id: 77424a63f4b7aad738ac108601888379356279a3
+    app.quarkus.io/commit-id: c9f32c9f0050b098f691fd64022cab383c2d7896
     app.quarkus.io/vcs-uri: https://github.com/batzionb/catalog-workflow.git
-    app.quarkus.io/build-timestamp: 2025-06-24 - 14:16:09 +0000
+    app.quarkus.io/build-timestamp: 2025-06-24 - 14:26:23 +0000
   labels:
     app.kubernetes.io/name: serverless-workflow-order
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -49,9 +49,9 @@ kind: Service
 metadata:
   annotations:
     app.quarkus.io/quarkus-version: 3.8.6.redhat-00004
-    app.quarkus.io/commit-id: 77424a63f4b7aad738ac108601888379356279a3
+    app.quarkus.io/commit-id: c9f32c9f0050b098f691fd64022cab383c2d7896
     app.quarkus.io/vcs-uri: https://github.com/batzionb/catalog-workflow.git
-    app.quarkus.io/build-timestamp: 2025-06-24 - 14:16:09 +0000
+    app.quarkus.io/build-timestamp: 2025-06-24 - 14:26:23 +0000
   labels:
     app.kubernetes.io/name: serverless-workflow-order
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -73,9 +73,9 @@ kind: Deployment
 metadata:
   annotations:
     app.quarkus.io/quarkus-version: 3.8.6.redhat-00004
-    app.quarkus.io/commit-id: 77424a63f4b7aad738ac108601888379356279a3
+    app.quarkus.io/commit-id: c9f32c9f0050b098f691fd64022cab383c2d7896
     app.quarkus.io/vcs-uri: https://github.com/batzionb/catalog-workflow.git
-    app.quarkus.io/build-timestamp: 2025-06-24 - 14:16:09 +0000
+    app.quarkus.io/build-timestamp: 2025-06-24 - 14:26:23 +0000
   labels:
     app.kubernetes.io/name: serverless-workflow-order
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -91,9 +91,9 @@ spec:
     metadata:
       annotations:
         app.quarkus.io/quarkus-version: 3.8.6.redhat-00004
-        app.quarkus.io/commit-id: 77424a63f4b7aad738ac108601888379356279a3
+        app.quarkus.io/commit-id: c9f32c9f0050b098f691fd64022cab383c2d7896
         app.quarkus.io/vcs-uri: https://github.com/batzionb/catalog-workflow.git
-        app.quarkus.io/build-timestamp: 2025-06-24 - 14:16:09 +0000
+        app.quarkus.io/build-timestamp: 2025-06-24 - 14:26:23 +0000
       labels:
         app.kubernetes.io/managed-by: quarkus
         app.kubernetes.io/version: 1.0.0-SNAPSHOT
@@ -164,9 +164,9 @@ spec:
     spec:
       containers:
         - env:
-            - name: QUARKUS_INIT_AND_EXIT
-              value: "true"
             - name: QUARKUS_FLYWAY_ENABLED
+              value: "true"
+            - name: QUARKUS_INIT_AND_EXIT
               value: "true"
           image: docker.io/org.kie.kogito/serverless-workflow-order:1.0.0-SNAPSHOT
           name: serverless-workflow-order-flyway-init

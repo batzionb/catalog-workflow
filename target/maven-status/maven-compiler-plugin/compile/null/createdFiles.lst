@@ -4,11 +4,14 @@ org/kie/kogito/openapi/backstagecatalog/model/Location.class
 org/kie/kogito/openapi/backstagecatalog/api/auth/AuthenticationPropagationHeadersFactory.class
 org/kie/kogito/openapi/backstagecatalog/api/auth/CompositeAuthenticationProvider.class
 org/kie/kogito/openapi/backstagecatalog/api/DefaultApi.class
+services/Supplier.class
 org/kie/kogito/openapi/backstagecatalog/model/LocationSpec.class
 .openapi-generator-ignore
+backstagecatalog.yaml
 .openapi-generator/VERSION
 org/kie/kogito/openapi/backstagecatalog/model/LocationsGet200Response$LocationsGet200ResponseQueryParam.class
-org/kie/kogito/openapi/backstagecatalog/model/Entity.class
 org/kie/kogito/openapi/backstagecatalog/model/Location$LocationQueryParam.class
+org/kie/kogito/openapi/backstagecatalog/model/Entity.class
+META-INF/panache-archive.marker
 org/kie/kogito/openapi/backstagecatalog/model/LocationSpec$LocationSpecQueryParam.class
 org/kie/kogito/openapi/backstagecatalog/model/Entity$EntityQueryParam.class

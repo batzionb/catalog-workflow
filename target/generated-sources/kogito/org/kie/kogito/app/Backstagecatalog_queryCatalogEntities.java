@@ -6,7 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class Backstagecatalog_queryCatalogEntities extends org.kie.kogito.serverless.workflow.openapi.OpenApiWorkItemHandler<org.kie.kogito.openapi.backstagecatalog.api.DefaultApi> {
 
     protected Object internalExecute(org.kie.kogito.openapi.backstagecatalog.api.DefaultApi openApiRef, java.util.Map<java.lang.String, java.lang.Object> parameters) {
-        return openApiRef.queryCatalogEntities((java.util.List<java.lang.String>) parameters.remove("filter"), (java.lang.String) parameters.remove("fields"), (java.lang.Integer) parameters.remove("limit"), (java.lang.Integer) parameters.remove("offset"), (java.lang.String) parameters.remove("orderField"), (java.lang.String) parameters.remove("fullTextFilter"));
+        return openApiRef.queryCatalogEntities(safeCast(parameters.remove("filter"), java.util.List.class), safeCast(parameters.remove("fields"), java.lang.String.class), safeCast(parameters.remove("limit"), java.lang.Integer.class), safeCast(parameters.remove("offset"), java.lang.Integer.class), safeCast(parameters.remove("orderField"), java.lang.String.class), safeCast(parameters.remove("fullTextFilter"), java.lang.String.class));
     }
 
     protected java.lang.Class<org.kie.kogito.openapi.backstagecatalog.api.DefaultApi> getRestClass() {

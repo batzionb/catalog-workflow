@@ -18,7 +18,6 @@
  */
 package org.kie.kogito.serverless;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -48,15 +47,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jbpm.util.JsonSchemaUtil;
 import org.kie.kogito.process.Process;
 import org.kie.kogito.process.ProcessInstance;
-import org.kie.kogito.process.WorkItem;
 import org.kie.kogito.process.ProcessService;
-import org.kie.kogito.process.workitem.Attachment;
-import org.kie.kogito.process.workitem.AttachmentInfo;
-import org.kie.kogito.process.workitem.Comment;
-import org.kie.kogito.process.workitem.Policies;
 import org.kie.kogito.process.workitem.TaskModel;
-import org.kie.kogito.auth.IdentityProvider;
-import org.kie.kogito.auth.IdentityProviders;
+import org.kie.kogito.auth.IdentityProviderFactory;
 import org.kie.kogito.auth.SecurityPolicy;
 import org.kie.kogito.serverless.workflow.models.JsonNodeModel;
 import org.kie.kogito.serverless.workflow.models.JsonNodeModelOutput;
@@ -73,6 +66,9 @@ public class OrderResource {
 
     @Inject
     ProcessService processService;
+
+    @Inject
+    IdentityProviderFactory identityProviderFactory;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -137,6 +133,6 @@ public class OrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "order", description = "")
     public List<TaskModel> getTasks_order(@PathParam("id") String id, @QueryParam("user") final String user, @QueryParam("group") final List<String> groups) {
-        return processService.getTasks(process, id, SecurityPolicy.of(IdentityProviders.of(user, groups))).orElseThrow(NotFoundException::new).stream().map(org.kie.kogito.serverless.Order_TaskModelFactory::from).collect(Collectors.toList());
+        return processService.getWorkItems(process, id, SecurityPolicy.of(identityProviderFactory.getOrImpersonateIdentity(user, groups))).orElseThrow(NotFoundException::new).stream().map(org.kie.kogito.serverless.Order_TaskModelFactory::from).collect(Collectors.toList());
     }
 }

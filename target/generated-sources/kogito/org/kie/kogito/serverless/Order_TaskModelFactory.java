@@ -18,6 +18,9 @@
  */
 package org.kie.kogito.serverless;
 
+import org.kie.kogito.usertask.model.Attachment;
+import org.kie.kogito.usertask.model.AttachmentInfo;
+import org.kie.kogito.usertask.model.Comment;
 import org.kie.kogito.process.workitem.TaskModel;
 
 public class Order_TaskModelFactory {
